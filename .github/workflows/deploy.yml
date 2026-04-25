@@ -27,11 +27,21 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Check directory structure
+        run: ls -la && echo "---" && ls -la SourceCode/
+
       - name: Install dependencies
-        run: cd SourceCode && npm install
+        run: |
+          cd SourceCode
+          npm install
+          echo "Checking if vite is installed..."
+          npx vite --version || echo "Vite not found in npx"
+          ./node_modules/.bin/vite --version || echo "Vite not found in node_modules"
 
       - name: Build
-        run: cd SourceCode && npm run build
+        run: |
+          cd SourceCode
+          npm run build
 
       - name: Create .nojekyll file
         run: touch SourceCode/dist/.nojekyll
