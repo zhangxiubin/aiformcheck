@@ -1,0 +1,230 @@
+---
+name: OutputForm
+description: 从 Excel 模板生成自定义表单 JSON 配置文件
+type: skill
+author: AI Assistant
+version: 1.0.0
+created: 2026-04-23
+---
+
+# OutputForm 技能说明
+
+## 技能概述
+
+OutputForm 是一个专门用于从 Excel 模板文件生成符合 `CustomForm/winning-webui-mras-tmts` 规范的自定义表单 JSON 配置文件的技能。
+
+## 功能特性
+
+### 1. Excel 模板解析
+- 读取 `Template/` 目录下的 Excel 模板文件（.xls/.xlsx）
+- 解析表单结构、字段定义、数据类型、选项配置等信息
+- 支持多层级表单结构（如考核评分标准的分组、子项等）
+
+### 2. 表单配置生成
+- 生成符合 `winning-webui-mras-tmts` 组件库规范的 JSON 配置
+- 自动配置表单属性（formProps、rowProps）
+- 智能匹配表单组件类型（input、radio、checkbox、select、table 等）
+
+### 3. 组件类型映射
+支持以下组件类型的自动识别和生成：
+- **文本框** (input): 用于文本输入
+- **数字框** (inputNumber): 用于数字输入和评分
+- **单选** (radio): 用于单选选项（如：是/否、合格/不合格）
+- **复选** (checkbox): 用于多选选项
+- **下拉框** (select): 用于下拉选择
+- **表格** (table): 用于动态表格数据
+- **文本展示** (text): 用于静态文本展示
+- **分割线** (divider): 用于表单分区
+- **日期时间** (datePicker): 用于日期选择
+- **开关** (switch): 用于开关选项
+
+### 4. 输出格式
+生成包含以下结构的 JSON 配置文件：
+
+```json
+{
+  "name": "表单名称",
+  "formProps": {
+    "labelPosition": "right",
+    "labelWidth": "auto",
+    "size": "mini",
+    "border": false
+  },
+  "rowProps": {
+    "gutter": 0
+  },
+  "items": [
+    {
+      "id": "唯一ID",
+      "field": "字段名",
+      "type": "组件类型",
+      "formItemProps": {
+        "label": "标签名"
+      },
+      "colProps": {
+        "span": 12
+      },
+      "defaultValue": "默认值",
+      "valueType": "值类型",
+      "dataOrigin": "static",
+      "staticData": "[...选项数据...]"
+    }
+  ]
+}
+```
+
+## 使用方式
+
+### 方式一：直接调用技能
+```
+请使用 OutputForm 技能处理 Template/临床科室医疗质量考核评分标准.xls
+```
+
+### 方式二：指定输出路径
+```
+使用 OutputForm 技能将 Template/临床科室医疗质量考核评分标准.xls
+转换为 output/临床科室医疗质量考核评分标准.json
+```
+
+### 方式三：自定义配置
+```
+使用 OutputForm 技能，读取 Template/临床科室医疗质量考核评分标准.xls，
+生成表单名称为"医疗质量考核表"的配置，输出到 output/medical-form.json，
+要求表单项宽度为 24 列，标签位置在左侧
+```
+
+## 配置参数
+
+### Excel 模板结构要求
+Excel 文件应包含以下列（列名可自定义，需在映射中指定）：
+- **序号**: 字段顺序
+- **字段名称/项目名称**: 表单项标签
+- **字段代码/字段名**: 字段标识（field）
+- **数据类型**: 组件类型（文本、数字、单选、多选、下拉等）
+- **选项配置**: 选项数据（用于 radio、checkbox、select）
+- **默认值**: 字段默认值
+- **是否必填**: 是否必填项
+- **列宽**: 表单项占用的列数（1-24）
+- **分组**: 表单分组信息
+
+### 表单属性配置
+- **name**: 表单名称（默认从 Excel 文件名提取）
+- **labelPosition**: 标签位置（left/right/top，默认: right）
+- **labelWidth**: 标签宽度（默认: auto）
+- **size**: 表单尺寸（mini/small/medium，默认: mini）
+- **border**: 是否显示边框（默认: false）
+
+## 输出规范
+
+### 1. 文件命名
+- 默认使用与 Excel 文件相同的名称，后缀改为 .json
+- 输出目录默认为 `output/`，可自定义
+
+### 2. 数据验证
+生成的 JSON 配置应符合以下规范：
+- 所有表单项必须有唯一的 `id` 和 `field`
+- `field` 不能为空且不能重复
+- `colProps.span` 必须在 1-24 之间
+- 选项数据（staticData）必须是有效的 JSON 数组格式
+
+### 3. 组件特殊配置
+#### 表格组件 (table)
+```json
+{
+  "type": "table",
+  "colProps": { "span": 24 },
+  "formItemEntityProps": {
+    "showSeq": true,
+    "showOperation": true,
+    "columns": [...]
+  }
+}
+```
+
+#### 单选/复选/下拉组件
+```json
+{
+  "type": "radio",
+  "dataOrigin": "static",
+  "staticData": "[{\"text\":\"选项1\",\"value\":\"1\"},{\"text\":\"选项2\",\"value\":\"2\"}]"
+}
+```
+
+## 依赖项
+
+- **Excel 解析库**: `xlsx` 或 `node-xlsx`
+- **唯一 ID 生成**: `nanoid`
+- **数据处理**: `lodash`
+
+## 错误处理
+
+技能在执行过程中会处理以下异常情况：
+1. Excel 文件不存在或格式错误
+2. 必需的列缺失
+3. 字段名重复
+4. 无效的组件类型
+5. JSON 格式错误
+
+遇到错误时，技能会：
+- 记录详细的错误日志
+- 提供修复建议
+- 尝试生成部分有效的配置
+
+## 示例
+
+### 示例 1: 基本使用
+```bash
+# 调用技能
+使用 OutputForm 技能处理 Template/临床科室医疗质量考核评分标准.xls
+
+# 输出
+✅ 成功生成配置文件: output/临床科室医疗质量考核评分标准.json
+📋 表单项数量: 45
+📋 表单分组: 5 个
+```
+
+### 示例 2: 自定义配置
+```bash
+使用 OutputForm 技能，
+读取 Template/临床科室医疗质量考核评分标准.xls，
+表单名称设置为"2026年度医疗质量考核表"，
+标签宽度设置为"120px"，
+表单项宽度默认为 24 列，
+输出到 output/2026-medical-form.json
+```
+
+## 注意事项
+
+1. **Excel 文件编码**: 确保 Excel 文件使用 UTF-8 编码，避免中文乱码
+2. **日期格式**: 日期类型字段统一使用 `yyyy-MM-dd` 格式
+3. **选项值**: 选项的 `value` 建议使用字符串类型，避免类型转换问题
+4. **字段命名**: `field` 建议使用英文、数字和下划线，避免特殊字符
+5. **列宽设置**: 总列数为 24，建议单个表单项占用 6、8、12 或 24 列
+
+## 扩展功能
+
+### 1. 数据元映射
+支持配置数据元映射，从数据元字典中获取字段定义和选项数据。
+
+### 2. 术语服务集成
+支持连接术语服务，自动加载标准术语选项。
+
+### 3. API 数据源
+支持配置 API 接口，动态加载表单选项数据。
+
+### 4. 表单验证规则
+支持配置必填、正则表达式、自定义验证等规则。
+
+## 版本历史
+
+### v1.0.0 (2026-04-23)
+- 初始版本发布
+- 支持 Excel 模板解析
+- 支持基本表单组件生成
+- 支持静态数据配置
+
+## 相关文档
+
+- [CustomForm 组件文档](CustomForm/winning-webui-mras-tmts/docs/schema.md)
+- [表单设计器说明](CustomForm/winning-webui-mras-tmts/docs/custom-component.md)
+- [组件类型定义](CustomForm/winning-webui-mras-tmts/src/components/smart-form/consts/form-items.js)

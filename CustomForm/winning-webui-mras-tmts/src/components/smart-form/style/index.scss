@@ -1,0 +1,304 @@
+
+@import 'element-ui';
+$form-item-mask-z-index: 10;
+// span {
+//   font-weight: inherit !important;
+// }
+.smart-form-wrapper {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  // border: 1px solid #ccc;
+  // padding: 8px;
+}
+
+.smart-form {
+  $fontSize-mini: 12px;
+  $fontSize-small: 13px;
+  $fontSize-medium: 14px;
+  $fontSize-default: 14px;
+  $height-mini: 28px;
+  $height-small: 32px;
+  $height-medium: 36px;
+  $height-default: 40px;
+
+  width: 100%;
+
+  &-item {
+    height: 100%;
+    .el-form-item {
+      margin-bottom: 10px!important;
+    }
+    
+
+   .el-form-item__label{
+    padding:4px 0 0 5px;
+   }
+    .el-form-item__label-wrap,.el-form-item__label-wrap {
+      display: inline-block;
+    }
+ 
+    // 隐藏label
+    &.hideLabel {
+      .el-form-item__label-wrap {
+        display: none;
+      }
+      .el-form-item__label{
+        display: none;
+      }
+      .el-form-item__content {
+        margin-left: 0!important;
+      }
+    }
+    .smart-form-item-entity {
+      padding:4px 5px;   //要与el-form-item__label 的padding高保持一致
+      flex: 1;
+      &.item-text,&.divider-wrapper,&.item-empty {
+       padding:0 5px;  
+      }
+      &.el-input-number .el-input-number__decrease{
+        right:6px;
+        bottom:5px
+      }
+      &.el-input-number .el-input-number__increase{  //保证 右侧的箭头位置 
+        right:6px;
+        top:5px
+      }
+    }
+
+    .el-form-item__content{
+      display: flex;
+      align-items: center;
+      height: 100%;
+      .el-form-item{
+        margin-bottom:0;
+      }
+  
+      .remarks {
+        padding: 0 5px;
+      }
+    }
+  }
+
+  :deep(.el-select) {
+    width: 100%;
+  }
+
+  .el-radio {
+    line-height: $height-default;
+    font-weight: normal;
+  }
+  .el-checkbox-group{
+    line-height: 1;
+    .el-checkbox{
+      font-weight: normal;
+    }
+   
+  }
+  .el-form-item__error{
+    font-size: 12px;
+  }
+  :deep(.el-date-editor.el-input) {
+    width: 100%;
+  }
+
+  &--default {
+    .el-radio, .el-checkbox {
+      line-height: $height-default;
+    }
+    .el-switch {
+      height: $height-default;
+    }
+    
+  }
+  &--medium {
+    .el-radio, .el-checkbox {
+      line-height: $height-medium;
+    }
+    .el-switch {
+      height: $height-medium;
+    }
+
+  }
+  &--small {
+   .el-radio, .el-checkbox {
+      line-height: 33px;    //因为input字体导致高度+1 所以要加1
+      margin-right:$fontSize-mini;
+    }
+
+    .el-switch {
+      height: $height-small;
+    }
+    .el-form-item__label{
+      font-size: $fontSize-small;
+  }
+  .el-radio__label, .el-checkbox__label{
+      font-size: $fontSize-small;
+      margin-left:0
+  }
+
+  .el-form-item--small.el-form-item{
+    margin-bottom:14px
+   }
+  
+  }
+  &--mini {
+    .el-radio, .el-checkbox, .el-switch {
+      line-height: $height-mini;
+      margin-right:$fontSize-mini;
+    }
+    .el-switch {
+      height: $height-mini;
+    }
+    .el-form-item__label{
+      font-size: $fontSize-mini;
+  }
+  .el-radio__label,.el-checkbox__label {
+      font-size: $fontSize-mini;
+
+      line-height: 1;
+      margin-left:0
+  }
+
+  .el-form-item--mini.el-form-item{
+    margin-bottom:12px
+}
+  }
+ .smart-form-item-entity{
+  font-weight: inherit;
+ }
+  .smart-form-item-entity.unnormal {
+    height: 100%;
+  }
+
+  &.fix-item-height {
+    :deep(.el-form-item__content),
+    .smart-form-item-entity.unnormal {
+      height: $height-default;
+    }
+
+    &.smart-form--default {
+      :deep(.el-form-item__content),
+      .smart-form-item-entity.unnormal {
+        height: $height-default;
+      }
+    }
+    &.smart-form--medium {
+      :deep(.el-form-item__content),
+      .smart-form-item-entity.unnormal {
+        height: $height-medium;
+      }
+    }
+    &.smart-form--small {
+      :deep(.el-form-item__content),
+      .smart-form-item-entity.unnormal {
+        height: $height-small;
+      }
+    }
+    &.smart-form--mini {
+      :deep(.el-form-item__content),
+      .smart-form-item-entity.unnormal {
+        height: $height-mini;
+      }
+    }
+  }
+  .custom .el-form-item .el-form-item__label{
+    padding: 0 4px 0 0 
+    }
+}
+.smart-form--no-message{
+  .el-form-item--mini.el-form-item,  .el-form-item--small.el-form-item,.el-form-item--medium.el-form-item,.el-form-item--default.el-form-item{
+    margin-bottom: 0
+  }
+} 
+
+
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.no-move {
+  transition: transform 0s;
+}
+.drag-ghost {
+  opacity: 0.5;
+  background: #c8ebfb;
+}
+.list-group {
+  min-height: 28px;
+  // 抵消 el-row 的负边距
+  // margin: 0 4px 0 4px;
+}
+
+
+
+.smart-form--mode-design .list-group-item {
+  cursor: move;
+  position: relative;
+
+  // 复制、删除操作按钮
+  .item-actions {
+    display: none;
+    position: absolute;
+    bottom: -11px;
+    right: 8px;
+    z-index: $form-item-mask-z-index + 1;
+
+    .el-button {
+      padding: 4px;
+
+      & + .el-button {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  &.active {
+    // outline: 2px solid #409EFF;
+    // background: rgba(64, 158, 255, .2);
+
+    // :deep(.el-input__inner),
+    // // :deep(.el-checkbox__inner),
+    // // :deep(.el-radio__inner),
+    // :deep(.el-table),
+    // :deep(.el-table) th.el-table__cell, {
+    //   background: rgba(255, 255, 255, .7);
+    // }
+
+    .item-actions {
+      display: flex;
+    }
+  }
+}
+
+
+.form-item-mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $form-item-mask-z-index;
+}
+
+.list-group-item.active .form-item-mask {
+  background: rgba(64, 158, 255, 0.2);
+  box-shadow: 0 0 4px #409eff;
+}
+
+.smart-form--border {
+  // border: 1px solid #ccc;
+
+  .list-group-item {
+    border-bottom: 1px solid #ccc;
+    // border-right: 1px solid #ccc;
+    // border-bottom: 1px solid #ccc;
+  }
+}
+
+// .smart-form-item {
+//   outline: 1px dashed #f00;
+// }
+
+// .list-group-item.active .smart-form-item {
+//   outline: 2px dashed #f00;
+// }

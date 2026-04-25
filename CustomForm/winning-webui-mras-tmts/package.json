@@ -1,0 +1,64 @@
+{
+  "name": "form-design",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "vue-cli-service serve",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "build:smart-form": "vue-cli-service build --target lib --name SmartForm --dest ./lib/smart-form ./src/components/smart-form/entry.js",
+    "build:smart-form-design": "vue-cli-service build --target lib --name SmartFormDesign --dest ./lib/smart-form-design ./src/components/smart-form-design/entry.js",
+    "build:all": "npm run build:smart-form && npm run build:smart-form-design",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "axios": "^1.15.0",
+    "core-js": "^3.8.3",
+    "dom-to-image": "^2.6.0",
+    "element-ui": "^2.15.10",
+    "file-saver": "^2.0.5",
+    "js-cookie": "^2.2.1",
+    "json5": "^2.2.3",
+    "lodash": "^4.17.21",
+    "nanoid": "^4.0.0",
+    "splitpanes": "^2.4.1",
+    "strip-comments": "^2.0.1",
+    "vue": "^2.6.14",
+    "vue-router": "^3.5.1",
+    "vuedraggable": "^2.24.3",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@commitlint/cli": "^17.8.1",
+    "@commitlint/config-conventional": "^17.8.1",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/eslint-config-standard": "^6.1.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^11.1.2",
+    "sass": "^1.32.7",
+    "sass-loader": "^12.0.0",
+    "terser-webpack-plugin": "^5.3.6",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

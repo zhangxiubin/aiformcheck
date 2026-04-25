@@ -1,0 +1,94 @@
+/**
+ * 生成 margin 和 pading
+ */
+
+// 每一级间距的大小
+$step-size: 4px;
+
+/**
+ * .ma-0 { margin: 0 !important; }
+ * .ma-1 { margin: 4px !important; }
+ * .pa-n2 { margin: -8px !important; }
+ *  ......
+ * a 表示 all
+ *
+ * @author wangkai 2021-12-03T13:55:19+0800
+ * @param  {Number} $i    [0, 5] 的正整数
+ * @param  {String} $type 取值范围: ['margin', 'padding']
+ * @param  {String} $t    $type 的首字母, 取值范围: ['m', 't']
+ * @return {[type]}       [description]
+ */
+@mixin mp-a($i, $type, $t) {
+  .#{$t}a-#{$i} {
+    #{$type}: $step-size * $i !important;
+  }
+  .#{$t}a-n#{$i} {
+    #{$type}: -$step-size * $i !important;
+  }
+}
+
+/**
+ * .mx-0 { margin-right: 0 !important; margin-left: 0 !important; }
+ * 水平方向的间距
+ * @author wangkai 2021-12-03T13:58:15+0800
+ * @param  {Number} $i    [0, 5] 的正整数
+ * @param  {String} $type 取值范围: ['margin', 'padding']
+ * @param  {String} $t    $type 的首字母, 取值范围: ['m', 't']
+ * @return {[type]}       [description]
+ */
+@mixin mp-x($i, $type, $t) {
+  .#{$t}x-#{$i} {
+    #{$type}-right: $step-size * $i !important;
+    #{$type}-left: $step-size * $i !important;
+  }
+
+  .#{$t}x-n#{$i} {
+    #{$type}-right: -$step-size * $i !important;
+    #{$type}-left: -$step-size * $i !important;
+  }
+}
+
+/**
+ * .my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+ * 竖直方向的间距
+ * @author wangkai 2021-12-03T13:59:36+0800
+ * @param  {Number} $i    [0, 5] 的正整数
+ * @param  {String} $type 取值范围: ['margin', 'padding']
+ * @param  {String} $t    $type 的首字母, 取值范围: ['m', 't']
+ * @return {[type]}       [description]
+ */
+@mixin mp-y($i, $type, $t) {
+  .#{$t}y-#{$i} {
+    #{$type}-top: $step-size * $i !important;
+    #{$type}-bottom: $step-size * $i !important;
+  }
+
+  .#{$t}y-n#{$i} {
+    #{$type}-top: -$step-size * $i !important;
+    #{$type}-bottom: -$step-size * $i !important;
+  }
+}
+
+/**
+ * 上右下左的间距
+ * .mt-0: 上边距
+ * .mr-0: 右边距
+ * .mb-0: 下边距
+ * .ml-0: 左边距
+ * @author wangkai 2021-12-03T14:01:28+0800
+ * @param  {String} $direction 取值范围: ['top', 'right', 'bottom', 'left']
+ * @param  {String} $d         $direction 的首字母, 取值范围: ['t', 'r', 'b', 'l']
+ * @param  {Number} $i         [0, 5] 的正整数
+ * @param  {String} $type      取值范围: ['margin', 'padding']
+ * @param  {String} $t         $type 的首字母, 取值范围: ['m', 't']
+ * @return {[type]}            [description]
+ */
+@mixin mp-direction($i, $type, $t, $direction, $d) {
+  .#{$t}#{$d}-#{$i} {
+    #{$type}-#{$direction}: $step-size * $i !important;
+  }
+
+  .#{$t}#{$d}-n#{$i} {
+    #{$type}-#{$direction}: -$step-size * $i !important;
+  }
+}

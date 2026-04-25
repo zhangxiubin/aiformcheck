@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "name": "wining-webui-mras-tool",
+  "author": "qingqi <514237621@qq.com>",
+  "scripts": {
+    "dev": "spark dev",
+    "build": "spark build",
+    "format": "prettier --cache --write .",
+    "postinstall": "spark setup",
+    "test": "spark test",
+    "lint": "spark lint"
+  },
+  "dependencies": {
+    "spark": "^2.0.0"
+  },
+  "devDependencies": {
+    
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.7",
+    "prettier-plugin-organize-imports": "^3.2.2",
+    "prettier-plugin-packagejson": "^2.4.3",
+    "typescript": "^5.0.3"
+  }
+}

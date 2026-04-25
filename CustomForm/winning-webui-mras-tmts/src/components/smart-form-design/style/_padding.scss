@@ -1,0 +1,28 @@
+@import "mixins/margin-padding";
+
+/* .pa-* */
+@for $i from 0 through 10 {
+ 
+    @include mp-a($i, padding, p);
+}
+
+/* .px-* */
+@for $i from 0 through 10 {
+
+    @include mp-x($i, padding, p);
+}
+
+/* .py-* */
+@for $i from 0 through 10 {
+ 
+    @include mp-y($i, padding, p);
+}
+
+/* .pt-*, .pr-*, .pb-*, .pl-* */
+@each $d, $direction in (t, top), (r, right), (b, bottom), (l, left) {
+  @for $i from 0 through 10 {
+  
+      @include mp-direction($i, padding, p, $direction, $d);
+
+  }
+}

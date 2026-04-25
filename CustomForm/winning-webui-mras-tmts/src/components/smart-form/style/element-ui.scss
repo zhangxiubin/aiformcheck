@@ -1,0 +1,46 @@
+
+// web-public/base-ui element 用的rem 根节点用14px
+/*
+ * 恢复表单必填项前面的小红星显示
+ *   项目不加载原始的 element-ui 的样式组件,
+ *   而是使用 /web-public/base-ui/index.css 代替, 其中包含了基本的 element 样式和 win-design 样式, 但是有部分缺失或不满足要求
+ */
+
+
+ .smart-form-wrapper{
+  font-size:14px !important;
+
+  .el-select-dropdown__item,.el-input,.el-input--medium, .el-button--mini, .el-button--small{
+    font-size: 14px;
+  }
+  .el-input--mini{
+   font-size: 12px;
+  }
+  .el-input--small{
+    font-size: 13px;
+  }
+
+
+.el-form-item.is-required:not(.is-no-asterisk) .el-form-item__label-wrap > .el-form-item__label::before,
+.el-form-item.is-required:not(.is-no-asterisk) > .el-form-item__label::before {
+  content: "*";
+  color: #ec0000;
+  margin-right: 4px;
+}
+
+/**
+ * 部分主平台 web-public/base-ui样式处理 0.86 自定义表单内数字框字体影响显示效果
+ */
+.el-input-number--mini .el-input-number__decrease, .el-input-number--mini .el-input-number__increase{
+  font-size: 0.82rem !important;
+}
+// base-ui 字体16  自定义表单内对不齐
+.el-form-item.is-required:not(.is-no-asterisk) .el-form-item__label-wrap>.el-form-item__label:after, .el-form-item.is-required:not(.is-no-asterisk)>.el-form-item__label:after{
+  content: '';
+  font-size: inherit
+}
+.el-switch .el-switch__core{
+  width: 40px !important
+}
+
+}

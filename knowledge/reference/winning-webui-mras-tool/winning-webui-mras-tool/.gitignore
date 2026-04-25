@@ -1,0 +1,13 @@
+/node_modules
+/.env.local
+/.sparkrc.local.ts
+/config/config.local.ts
+/src/.spark
+/src/.spark-production
+/src/.spark-test
+/.spark
+/.spark-production
+/.spark-test
+/dist
+/.mfsu
+.swc

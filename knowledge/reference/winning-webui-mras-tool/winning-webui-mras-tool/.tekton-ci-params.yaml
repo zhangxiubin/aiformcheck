@@ -1,0 +1,11 @@
+- params:
+    # 指定node版本
+    - name: node-version
+      value: 20.11.0
+ 
+    # 指定Nod运行时参数,设置构建内存大小单位M
+    - name: node-options
+      value: "--max-old-space-size=4096"
+    #使用npm还是yarn。默认使用yarn。
+    - name: package-manager
+      value: yarn
