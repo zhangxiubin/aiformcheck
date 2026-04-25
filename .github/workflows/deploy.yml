@@ -26,6 +26,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'SourceCode/package-lock.json'
 
       - name: Check directory structure
         run: ls -la && echo "---" && ls -la SourceCode/
@@ -33,7 +35,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd SourceCode
-          npm install
+          npm ci
           echo "Checking if vite is installed..."
           npx vite --version || echo "Vite not found in npx"
           ./node_modules/.bin/vite --version || echo "Vite not found in node_modules"
