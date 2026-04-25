@@ -35,10 +35,24 @@ jobs:
       - name: Install dependencies
         run: |
           cd SourceCode
-          npm ci
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          echo "Installing dependencies..."
+          if npm ci; then
+            echo "✅ Dependencies installed successfully"
+          else
+            echo "❌ npm ci failed, trying npm install..."
+            npm install
+          fi
+          echo "Checking node_modules..."
+          ls -la node_modules/.bin/ || echo "node_modules/.bin not found"
           echo "Checking if vite is installed..."
-          npx vite --version || echo "Vite not found in npx"
-          ./node_modules/.bin/vite --version || echo "Vite not found in node_modules"
+          if [ -f "./node_modules/.bin/vite" ]; then
+            ./node_modules/.bin/vite --version
+          else
+            echo "❌ Vite not found in node_modules"
+            exit 1
+          fi
 
       - name: Build
         run: |
