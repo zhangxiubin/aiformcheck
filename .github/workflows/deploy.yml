@@ -17,9 +17,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./SourceCode
 
     steps:
       - name: Checkout
@@ -31,13 +28,13 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: cd SourceCode && npm install
 
       - name: Build
-        run: npm run build
+        run: cd SourceCode && npm run build
 
       - name: Create .nojekyll file
-        run: touch dist/.nojekyll
+        run: touch SourceCode/dist/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
