@@ -26,31 +26,31 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
-          cache-dependency-path: 'SourceCode/package-lock.json'
 
       - name: Check directory structure
         run: ls -la && echo "---" && ls -la SourceCode/
 
       - name: Install dependencies
+        working-directory: ./SourceCode
         run: |
-          cd SourceCode
           echo "Node version: $(node --version)"
           echo "NPM version: $(npm --version)"
+          echo "Current directory: $(pwd)"
+          echo "Package files:"
+          ls -la package.json package-lock.json 2>/dev/null || echo "Package files not found"
           echo "Installing dependencies..."
-          if npm ci; then
-            echo "✅ Dependencies installed successfully"
-          else
-            echo "❌ npm ci failed, trying npm install..."
-            npm install
-          fi
+          npm install
+          echo "✅ Dependencies installed successfully"
           echo "Checking node_modules..."
-          ls -la node_modules/.bin/ || echo "node_modules/.bin not found"
+          ls -la node_modules/.bin/ | head -20
           echo "Checking if vite is installed..."
           if [ -f "./node_modules/.bin/vite" ]; then
             ./node_modules/.bin/vite --version
+            echo "✅ Vite is ready"
           else
             echo "❌ Vite not found in node_modules"
+            echo "Available binaries:"
+            ls node_modules/.bin/ || echo "No .bin directory"
             exit 1
           fi
 
